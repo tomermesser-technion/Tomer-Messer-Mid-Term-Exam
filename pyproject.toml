@@ -3,6 +3,7 @@ name = "status-dashboard"
 version = "1.0.0"
 description = "status dashboard service"
 authors = []
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
