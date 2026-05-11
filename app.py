@@ -9,6 +9,7 @@ if not API_KEY:
 
 PORT = int(os.environ.get("PORT", 5000))
 VERSION = os.environ.get("VERSION", "1.0.0")
+API_VERSION = "v1"
 
 app = Flask(__name__)
 
@@ -20,10 +21,15 @@ def index():
 
 @app.route("/api/status")
 def api_status_redirect():
-    return redirect("/api/v1/status")
+    return redirect(f"/api/{API_VERSION}/status")
 
 
-@app.route("/api/v1/status")
+@app.route("/api/secret")
+def api_secret_redirect():
+    return redirect(f"/api/{API_VERSION}/secret")
+
+
+@app.route(f"/api/{API_VERSION}/status")
 def api_status():
     return jsonify({
         "status": "ok",
@@ -32,7 +38,7 @@ def api_status():
     })
 
 
-@app.route("/api/v1/secret")
+@app.route(f"/api/{API_VERSION}/secret")
 def api_secret():
     key = request.headers.get("X-API-Key")
     if key != API_KEY:
