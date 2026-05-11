@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status Dashboard</title>
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; }
+        button { padding: 10px 24px; font-size: 1rem; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 16px; border-radius: 4px; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Status Dashboard</h1>
+    <p>Status monitor</p>
+    <button onclick="fetchStatus()">Check Status</button>
+    <pre id="result"></pre>
+    <script>
+        function fetchStatus() {
+            fetch('/api/v1/status')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                });
+        }
+    </script>
+</body>
+</html>
