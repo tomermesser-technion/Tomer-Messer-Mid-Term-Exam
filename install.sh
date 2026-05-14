@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
-set -euo pipefail
+##################
+# Purpose: Installation script for the status-dashboard for root user.
+# Developer: Tomer Messer - tomer.messer@campus.technion.ac.il
+# Version: 0.0.1
+# Date: 14.05.2026
+##################
+
+set -o errexit
+set -o nounset
+set -o pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VERSION="${VERSION:-1.0.0}"
@@ -41,3 +50,6 @@ systemctl start nginx
 systemctl reload nginx
 
 echo "5. Service is up at http://$(hostname -I | awk '{print $1}')/"
+sleep 1
+echo "6. Checking status..."
+curl -s http://localhost/api/status
