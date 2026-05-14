@@ -24,15 +24,15 @@ if [[ -z "${API_KEY:-}" ]]; then
     exit 1
 fi
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "1. Building Docker image..."
 docker build -t status-dashboard "$REPO_DIR"
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "2. Removing existing container if present..."
 docker rm -f status-dashboard 2>/dev/null || true
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "3. Starting container..."
 docker run -d \
     --name status-dashboard \
@@ -43,7 +43,7 @@ docker run -d \
     -p 127.0.0.1:5000:"$PORT" \
     status-dashboard
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "4. Setting up nginx..."
 cp "$REPO_DIR/nginx/status-dashboard" /etc/nginx/sites-available/status-dashboard
 ln -sf /etc/nginx/sites-available/status-dashboard /etc/nginx/sites-enabled/status-dashboard
@@ -53,10 +53,10 @@ systemctl enable nginx
 systemctl start nginx
 systemctl reload nginx
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "5. Service is up at http://$(hostname -I | awk '{print $1}')/"
 sleep 1
 
-echo "\n================================================"
+echo -e "\n================================================"
 echo "6. Checking status..."
 curl -sL http://localhost/api/status
