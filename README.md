@@ -28,6 +28,8 @@ The script builds the Docker image, starts the container, configures nginx, and 
 
 ## Verify
 
+Note: `/api/status` and `/api/secret` redirect to their `/v1` versions. Use `-L` with curl to follow the redirect and receive the JSON response.
+
 ```bash
 curl -sL http://localhost/api/status | jq .
 curl -s -o /dev/null -w "%{http_code}\n" http://localhost/api/secret
